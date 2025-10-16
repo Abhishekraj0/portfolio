@@ -1,7 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
-import { FaGraduationCap, FaCode, FaServer, FaDatabase, FaCloud, FaChartLine, FaUsers, FaCogs } from 'react-icons/fa';
+import { FaGraduationCap, FaCode, FaServer, FaCloud, FaChartLine, FaUsers, FaCogs } from 'react-icons/fa';
 import './About.css';
 
 const About = () => {
@@ -73,10 +73,10 @@ const About = () => {
                   cycles by 40% through efficient system design and team leadership.
                 </p>
                 <p>
-                  <FaDatabase className="inline-icon" />
+                  <FaCloud className="inline-icon" />
                   I'm passionate about API development, database optimization, and DevOps collaboration, 
                   with a strong background in building enterprise Integration Platform as a Service (iPaaS) 
-                  applications.
+                  applications and cloud deployment.
                 </p>
               </div>
             </motion.div>
