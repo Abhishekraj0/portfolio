@@ -1,0 +1,306 @@
+.header {
+  background: radial-gradient(ellipse at center, #1a1a2e 0%, #16213e 50%, #0f0f23 100%);
+  color: white;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.header::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: 
+    radial-gradient(circle at 20% 80%, rgba(102, 126, 234, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(118, 75, 162, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 40% 40%, rgba(240, 147, 251, 0.05) 0%, transparent 50%);
+  z-index: 1;
+}
+
+.header-content {
+  max-width: 900px;
+  padding: 0 20px;
+  position: relative;
+  z-index: 2;
+}
+
+.profile-image {
+  position: relative;
+  margin: 0 auto 3rem;
+  width: 200px;
+  height: 200px;
+}
+
+.image-placeholder {
+  width: 200px;
+  height: 200px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  box-shadow: 
+    0 0 50px rgba(102, 126, 234, 0.4),
+    0 0 100px rgba(102, 126, 234, 0.2),
+    inset 0 0 50px rgba(255, 255, 255, 0.1);
+  animation: profileGlow 3s ease-in-out infinite alternate;
+}
+
+.profile-icon {
+  font-size: 4rem;
+  color: white;
+  filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.3));
+}
+
+.floating-icons {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.floating-icon {
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 1.2rem;
+  animation: floatingOrbit 8s linear infinite;
+}
+
+.floating-icon:nth-child(1) {
+  top: -20px;
+  right: 20px;
+  animation-delay: 0s;
+}
+
+.floating-icon:nth-child(2) {
+  bottom: -20px;
+  left: 20px;
+  animation-delay: -2.7s;
+}
+
+.floating-icon:nth-child(3) {
+  top: 50%;
+  right: -20px;
+  animation-delay: -5.3s;
+}
+
+.name {
+  font-size: 5rem;
+  font-weight: 900;
+  margin-bottom: 1rem;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-shadow: 0 0 30px rgba(102, 126, 234, 0.5);
+  letter-spacing: 2px;
+}
+
+.title {
+  font-size: 2.5rem;
+  font-weight: 600;
+  margin-bottom: 2rem;
+  color: rgba(255, 255, 255, 0.9);
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  position: relative;
+}
+
+.title::after {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100px;
+  height: 3px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 2px;
+}
+
+.subtitle {
+  font-size: 1.3rem;
+  line-height: 1.8;
+  margin-bottom: 3rem;
+  color: rgba(255, 255, 255, 0.8);
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.contact-info {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 2rem;
+  margin-bottom: 3rem;
+}
+
+.contact-item {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  padding: 1rem 1.5rem;
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 25px;
+  transition: all 0.3s ease;
+}
+
+.contact-item:hover {
+  background: rgba(102, 126, 234, 0.2);
+  border-color: rgba(102, 126, 234, 0.4);
+  transform: translateY(-3px);
+  box-shadow: 0 10px 25px rgba(102, 126, 234, 0.3);
+}
+
+.contact-icon {
+  font-size: 1.2rem;
+  color: #667eea;
+}
+
+.social-links {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+}
+
+.social-link {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  color: white;
+  text-decoration: none;
+  padding: 1rem 2rem;
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 30px;
+  transition: all 0.3s ease;
+  font-weight: 600;
+  position: relative;
+  overflow: hidden;
+}
+
+.social-link::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+  transition: left 0.5s ease;
+}
+
+.social-link:hover::before {
+  left: 100%;
+}
+
+.social-link.linkedin:hover {
+  background: rgba(0, 119, 181, 0.3);
+  border-color: #0077b5;
+  box-shadow: 0 0 25px rgba(0, 119, 181, 0.4);
+}
+
+.social-link.github:hover {
+  background: rgba(51, 51, 51, 0.3);
+  border-color: #333;
+  box-shadow: 0 0 25px rgba(51, 51, 51, 0.4);
+}
+
+.social-link.resume:hover {
+  background: rgba(102, 126, 234, 0.3);
+  border-color: #667eea;
+  box-shadow: 0 0 25px rgba(102, 126, 234, 0.4);
+}
+
+.social-link svg {
+  font-size: 1.3rem;
+}
+
+.scroll-indicator {
+  position: absolute;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 2;
+}
+
+.scroll-arrow {
+  font-size: 2rem;
+  color: rgba(255, 255, 255, 0.6);
+  cursor: pointer;
+}
+
+@keyframes profileGlow {
+  0% { box-shadow: 0 0 50px rgba(102, 126, 234, 0.4), 0 0 100px rgba(102, 126, 234, 0.2); }
+  100% { box-shadow: 0 0 80px rgba(102, 126, 234, 0.6), 0 0 120px rgba(102, 126, 234, 0.3); }
+}
+
+@keyframes floatingOrbit {
+  0% { transform: rotate(0deg) translateX(120px) rotate(0deg); }
+  100% { transform: rotate(360deg) translateX(120px) rotate(-360deg); }
+}
+
+@media (max-width: 768px) {
+  .profile-image {
+    width: 150px;
+    height: 150px;
+    margin-bottom: 2rem;
+  }
+  
+  .image-placeholder {
+    width: 150px;
+    height: 150px;
+  }
+  
+  .profile-icon {
+    font-size: 3rem;
+  }
+  
+  .name {
+    font-size: 3rem;
+  }
+  
+  .title {
+    font-size: 1.8rem;
+  }
+  
+  .subtitle {
+    font-size: 1.1rem;
+  }
+  
+  .contact-info {
+    flex-direction: column;
+    gap: 1rem;
+  }
+  
+  .social-links {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .floating-icon {
+    display: none;
+  }
+}
