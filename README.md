@@ -20,34 +20,6 @@ A modern, responsive portfolio website showcasing my experience as a Java Backen
 - Fully responsive design
 - Smooth animations and transitions
 
-## 🏃‍♂️ Running Locally
-
-1. Clone the repository
-```bash
-git clone https://github.com/abhishekraj0/abhishekraj0.github.io.git
-cd abhishekraj0.github.io
-```
-
-2. Install dependencies
-```bash
-npm install
-```
-
-3. Start the development server
-```bash
-npm start
-```
-
-4. Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
-
-## 🚀 Deployment
-
-To deploy to GitHub Pages:
-
-```bash
-npm run deploy
-```
-
 ## 📄 Resume
 [Download PDF Resume](https://abhishekraj0.github.io/resume.pdf)
 
