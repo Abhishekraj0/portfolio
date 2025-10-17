@@ -32,20 +32,32 @@ const PersonalInfoEditor = ({ data, onUpdate }) => {
     const file = event.target.files[0];
     if (!file) return;
 
+    console.log('Resume file selected:', file.name, file.size, file.type);
+
     if (file.type !== 'application/pdf') {
       toast.error('Please upload a PDF file');
       return;
     }
 
+    if (file.size > 10 * 1024 * 1024) { // 10MB limit
+      toast.error('File size must be less than 10MB');
+      return;
+    }
+
     setUploadingResume(true);
     try {
-      const resumeUrl = await portfolioAPI.uploadFile(file);
+      console.log('Starting resume upload...');
+      const resumeUrl = await portfolioAPI.uploadFile(file, 'portfolio-assets');
+      console.log('Resume uploaded, updating database...');
       await portfolioAPI.updatePortfolioData({ resume_url: resumeUrl });
-      toast.success('Resume uploaded successfully!');
+      toast.success('Resume uploaded and updated successfully!');
       onUpdate();
+      
+      // Clear the file input
+      event.target.value = '';
     } catch (error) {
-      toast.error('Failed to upload resume');
-      console.error(error);
+      console.error('Resume upload error:', error);
+      toast.error(`Failed to upload resume: ${error.message}`);
     } finally {
       setUploadingResume(false);
     }
@@ -55,20 +67,32 @@ const PersonalInfoEditor = ({ data, onUpdate }) => {
     const file = event.target.files[0];
     if (!file) return;
 
+    console.log('Image file selected:', file.name, file.size, file.type);
+
     if (!file.type.startsWith('image/')) {
-      toast.error('Please upload an image file');
+      toast.error('Please upload an image file (JPG, PNG, GIF, WebP)');
+      return;
+    }
+
+    if (file.size > 5 * 1024 * 1024) { // 5MB limit
+      toast.error('Image size must be less than 5MB');
       return;
     }
 
     setUploadingImage(true);
     try {
-      const imageUrl = await portfolioAPI.uploadFile(file);
+      console.log('Starting image upload...');
+      const imageUrl = await portfolioAPI.uploadFile(file, 'portfolio-assets');
+      console.log('Image uploaded, updating database...');
       await portfolioAPI.updatePortfolioData({ profile_image_url: imageUrl });
-      toast.success('Profile image uploaded successfully!');
+      toast.success('Profile image uploaded and updated successfully!');
       onUpdate();
+      
+      // Clear the file input
+      event.target.value = '';
     } catch (error) {
-      toast.error('Failed to upload image');
-      console.error(error);
+      console.error('Image upload error:', error);
+      toast.error(`Failed to upload image: ${error.message}`);
     } finally {
       setUploadingImage(false);
     }
@@ -318,6 +342,29 @@ const PersonalInfoEditor = ({ data, onUpdate }) => {
           >
             <FaSave />
             {isLoading ? 'Saving...' : 'Save Changes'}
+          </motion.button>
+          
+          <motion.button
+            type="button"
+            onClick={() => {
+              onUpdate();
+              toast.success('Data refreshed!');
+            }}
+            className="btn btn-secondary"
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
+          >
+            Refresh Data
+          </motion.button>
+          
+          <motion.button
+            type="button"
+            onClick={() => window.open('/', '_blank')}
+            className="btn btn-secondary"
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
+          >
+            View Portfolio
           </motion.button>
         </div>
       </form>

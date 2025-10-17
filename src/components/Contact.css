@@ -1,5 +1,5 @@
 .contact {
-  background: radial-gradient(ellipse at center, #0f0f23 0%, #1a1a2e 50%, #16213e 100%);
+  background: radial-gradient(ellipse at center, var(--background-color, #0f0f23) 0%, #1a1a2e 50%, #16213e 100%);
   color: white;
   position: relative;
   overflow: hidden;

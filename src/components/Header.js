@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 import { FaLinkedin, FaGithub, FaDownload, FaEnvelope, FaPhone, FaMapMarkerAlt, FaCode, FaServer, FaCloud } from 'react-icons/fa';
 import './Header.css';
 
-const Header = () => {
+const Header = ({ data }) => {
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -37,7 +37,15 @@ const Header = () => {
         >
           <motion.div className="profile-image" variants={itemVariants}>
             <div className="image-placeholder">
-              <FaCode className="profile-icon" />
+              {data?.profile_image_url ? (
+                <img 
+                  src={data.profile_image_url} 
+                  alt={data.name || 'Profile'} 
+                  className="profile-photo"
+                />
+              ) : (
+                <FaCode className="profile-icon" />
+              )}
             </div>
             <div className="floating-icons">
               <div className="floating-icon"><FaServer /></div>
@@ -47,36 +55,35 @@ const Header = () => {
           </motion.div>
 
           <motion.h1 className="name" variants={itemVariants}>
-            Abhishek Raj
+            {data?.name || 'Abhishek Raj'}
           </motion.h1>
           
           <motion.h2 className="title" variants={itemVariants}>
-            Java Backend Developer
+            {data?.title || 'Java Backend Developer'}
           </motion.h2>
           
           <motion.p className="subtitle" variants={itemVariants}>
-            2+ years of enterprise software development experience specializing in Spring Boot, 
-            microservices architecture, and cloud deployment
+            {data?.subtitle || '2+ years of enterprise software development experience specializing in Spring Boot, microservices architecture, and cloud deployment'}
           </motion.p>
           
           <motion.div className="contact-info" variants={itemVariants}>
             <div className="contact-item">
               <FaEnvelope className="contact-icon" />
-              <span>abhishekraj88731@gmail.com</span>
+              <span>{data?.email || 'abhishekraj88731@gmail.com'}</span>
             </div>
             <div className="contact-item">
               <FaPhone className="contact-icon" />
-              <span>+919507565009</span>
+              <span>{data?.phone || '+919507565009'}</span>
             </div>
             <div className="contact-item">
               <FaMapMarkerAlt className="contact-icon" />
-              <span>Karnataka, India</span>
+              <span>{data?.location || 'Karnataka, India'}</span>
             </div>
           </motion.div>
           
           <motion.div className="social-links" variants={itemVariants}>
             <motion.a 
-              href="https://www.linkedin.com/in/abhishekraj0/" 
+              href={data?.linkedin_url || 'https://www.linkedin.com/in/abhishekraj0/'} 
               target="_blank" 
               rel="noopener noreferrer"
               whileHover={{ scale: 1.1, y: -5 }}
@@ -87,7 +94,7 @@ const Header = () => {
               <span>LinkedIn</span>
             </motion.a>
             <motion.a 
-              href="https://github.com/abhishekraj0" 
+              href={data?.github_url || 'https://github.com/abhishekraj0'} 
               target="_blank" 
               rel="noopener noreferrer"
               whileHover={{ scale: 1.1, y: -5 }}
@@ -98,7 +105,7 @@ const Header = () => {
               <span>GitHub</span>
             </motion.a>
             <motion.a 
-              href="/AbhishekRaj_Resume.pdf" 
+              href={data?.resume_url ? `${data.resume_url}?t=${Date.now()}` : '/AbhishekRaj_Resume.pdf'} 
               target="_blank" 
               rel="noopener noreferrer"
               whileHover={{ scale: 1.1, y: -5 }}

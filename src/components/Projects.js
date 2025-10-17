@@ -1,59 +1,70 @@
 import React from 'react';
 import './Projects.css';
 
-const Projects = () => {
-  const projects = [
-    {
-      title: "ErrorNex - Error Management & Monitoring Platform",
-      description: "Designed and developed a comprehensive error management tool for streamlined error handling processes with real-time monitoring capabilities.",
-      features: [
-        "Built real-time monitoring dashboard improving debugging efficiency by 50%",
-        "Comprehensive error tracking and management system",
-        "Real-time alerts and notifications",
-        "Advanced analytics and reporting"
-      ],
-      technologies: ["Java", "Spring Boot", "PostgreSQL", "React", "WebSocket", "Docker"]
-    },
-    {
-      title: "PlatformNX - Enterprise iPaaS",
-      description: "Enterprise Integration Platform as a Service enabling complex data flow integration across organizations with no-code/low-code workflow builder.",
-      features: [
-        "Microservices architecture supporting workflow automation",
-        "No-code/low-code workflow builder interface",
-        "Enterprise-wide data integration capabilities",
-        "Scalable backend engine for process automation"
-      ],
-      technologies: ["Spring Boot", "Docker", "PostgreSQL", "Redis", "Azure", "OpenTelemetry"]
-    }
-  ];
+const Projects = ({ data }) => {
+  const projects = data || [];
 
   return (
     <section id="projects" className="projects">
       <div className="container">
         <h2 className="section-title">Featured Projects</h2>
         <div className="projects-grid">
-          {projects.map((project, index) => (
-            <div key={index} className="project-card">
-              <h3>{project.title}</h3>
-              <p className="project-description">{project.description}</p>
-              <div className="project-features">
-                <h4>Key Features:</h4>
-                <ul>
-                  {project.features.map((feature, i) => (
-                    <li key={i}>{feature}</li>
-                  ))}
-                </ul>
-              </div>
-              <div className="project-tech">
-                <h4>Technologies:</h4>
-                <div className="tech-tags">
-                  {project.technologies.map((tech, i) => (
-                    <span key={i} className="tech-tag">{tech}</span>
-                  ))}
+          {projects.length === 0 ? (
+            <div className="no-data">
+              <p>No projects available. Please add your projects in the admin panel.</p>
+            </div>
+          ) : (
+            projects.map((project, index) => (
+              <div key={project.id || index} className="project-card">
+                {project.image_url && (
+                  <div className="project-image">
+                    <img src={project.image_url} alt={project.title} />
+                    {project.is_featured && <span className="featured-badge">Featured</span>}
+                  </div>
+                )}
+                <div className="project-content">
+                  <h3>{project.title}</h3>
+                  {project.description && (
+                    <p className="project-description">{project.description}</p>
+                  )}
+                  {project.features && project.features.length > 0 && (
+                    <div className="project-features">
+                      <h4>Key Features:</h4>
+                      <ul>
+                        {project.features.map((feature, i) => (
+                          <li key={i}>{feature}</li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
+                  {project.technologies && project.technologies.length > 0 && (
+                    <div className="project-tech">
+                      <h4>Technologies:</h4>
+                      <div className="tech-tags">
+                        {project.technologies.map((tech, i) => (
+                          <span key={i} className="tech-tag">{tech}</span>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+                  {(project.github_url || project.live_url) && (
+                    <div className="project-links">
+                      {project.github_url && (
+                        <a href={project.github_url} target="_blank" rel="noopener noreferrer" className="project-link">
+                          GitHub
+                        </a>
+                      )}
+                      {project.live_url && (
+                        <a href={project.live_url} target="_blank" rel="noopener noreferrer" className="project-link">
+                          Live Demo
+                        </a>
+                      )}
+                    </div>
+                  )}
                 </div>
               </div>
-            </div>
-          ))}
+            ))
+          )}
         </div>
       </div>
     </section>

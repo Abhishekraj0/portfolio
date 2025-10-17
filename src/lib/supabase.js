@@ -114,31 +114,71 @@ export const portfolioAPI = {
     await supabase.from('skills').delete().neq('id', 0)
     
     // Insert new skills
-    const { data, error } = await supabase
+    const { error } = await supabase
       .from('skills')
       .insert(skills)
       .select()
     
     if (error) throw error
-    return data
+    return skills
   },
 
   // Upload file
   async uploadFile(file, bucket = 'portfolio-assets') {
-    const fileExt = file.name.split('.').pop()
-    const fileName = `${Date.now()}.${fileExt}`
-    
-    const { data, error } = await supabase.storage
-      .from(bucket)
-      .upload(fileName, file)
-    
-    if (error) throw error
-    
-    const { data: { publicUrl } } = supabase.storage
-      .from(bucket)
-      .getPublicUrl(fileName)
-    
-    return publicUrl
+    try {
+      console.log('Starting file upload:', file.name, file.size, file.type);
+      
+      // First, try the storage bucket approach
+      try {
+        const fileExt = file.name.split('.').pop().toLowerCase();
+        const fileName = `${Date.now()}-${Math.random().toString(36).substring(2)}.${fileExt}`;
+        
+        console.log('Attempting storage bucket upload...');
+        
+        const { data: uploadData, error: uploadError } = await supabase.storage
+          .from(bucket)
+          .upload(fileName, file, {
+            cacheControl: '3600',
+            upsert: true
+          });
+        
+        if (uploadError) {
+          console.log('Storage bucket failed, trying fallback method...');
+          throw uploadError;
+        }
+        
+        const { data: { publicUrl } } = supabase.storage
+          .from(bucket)
+          .getPublicUrl(fileName);
+        
+        console.log('Storage bucket upload successful:', publicUrl);
+        return publicUrl;
+        
+      } catch (storageError) {
+        console.log('Storage bucket method failed, using base64 fallback...');
+        
+        // Fallback: Convert to base64 and store in database
+        return new Promise((resolve, reject) => {
+          const reader = new FileReader();
+          
+          reader.onload = () => {
+            const base64Data = reader.result;
+            console.log('File converted to base64, size:', base64Data.length);
+            resolve(base64Data);
+          };
+          
+          reader.onerror = () => {
+            reject(new Error('Failed to read file'));
+          };
+          
+          reader.readAsDataURL(file);
+        });
+      }
+      
+    } catch (error) {
+      console.error('File upload error:', error);
+      throw new Error(`Upload failed: ${error.message}`);
+    }
   },
 
   // Authentication
