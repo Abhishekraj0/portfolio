@@ -135,7 +135,7 @@ export const portfolioAPI = {
         
         console.log('Attempting storage bucket upload...');
         
-        const { data: uploadData, error: uploadError } = await supabase.storage
+        const { error: uploadError } = await supabase.storage
           .from(bucket)
           .upload(fileName, file, {
             cacheControl: '3600',
