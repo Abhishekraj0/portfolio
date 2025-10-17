@@ -4,7 +4,7 @@ import { useInView } from 'react-intersection-observer';
 import { FaLinkedin, FaGithub, FaDownload, FaEnvelope, FaPhone, FaMapMarkerAlt, FaPaperPlane } from 'react-icons/fa';
 import './Contact.css';
 
-const Contact = () => {
+const Contact = ({ data }) => {
   const [ref, inView] = useInView({
     triggerOnce: true,
     threshold: 0.1
@@ -68,7 +68,7 @@ const Contact = () => {
                 <FaEnvelope className="contact-icon" />
                 <div>
                   <h4>Email</h4>
-                  <a href="mailto:abhishekraj88731@gmail.com">abhishekraj88731@gmail.com</a>
+                  <a href={`mailto:${data?.email || 'abhishekraj88731@gmail.com'}`}>{data?.email || 'abhishekraj88731@gmail.com'}</a>
                 </div>
               </motion.div>
               <motion.div
@@ -79,7 +79,7 @@ const Contact = () => {
                 <FaPhone className="contact-icon" />
                 <div>
                   <h4>Phone</h4>
-                  <a href="tel:+919507565009">+91 9507565009</a>
+                  <a href={`tel:${data?.phone || '+919507565009'}`}>{data?.phone || '+91 9507565009'}</a>
                 </div>
               </motion.div>
               <motion.div
@@ -90,13 +90,13 @@ const Contact = () => {
                 <FaMapMarkerAlt className="contact-icon" />
                 <div>
                   <h4>Location</h4>
-                  <span>Karnataka, India</span>
+                  <span>{data?.location || 'Karnataka, India'}</span>
                 </div>
               </motion.div>
             </div>
             <div className="social-links">
               <motion.a
-                href="https://www.linkedin.com/in/abhishekraj0/"
+                href={data?.linkedin_url || 'https://www.linkedin.com/in/abhishekraj0/'}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="social-link linkedin"
@@ -107,7 +107,7 @@ const Contact = () => {
                 <span>LinkedIn</span>
               </motion.a>
               <motion.a
-                href="https://github.com/abhishekraj0"
+                href={data?.github_url || 'https://github.com/abhishekraj0'}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="social-link github"
@@ -127,7 +127,7 @@ const Contact = () => {
             </div>
             <p>Get a detailed overview of my experience, skills, and achievements.</p>
             <motion.a
-              href="/AbhishekRaj_Resume.pdf"
+              href={data?.resume_url ? `${data.resume_url}?t=${Date.now()}` : '/AbhishekRaj_Resume.pdf'}
               className="resume-btn"
               target="_blank"
               rel="noopener noreferrer"
